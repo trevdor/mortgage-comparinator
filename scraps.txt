@@ -1,0 +1,42 @@
+
+    const data = [
+      {
+        name: 'before',
+        "home equity": 120000,
+        "student loans": 56500,
+        monthlyObligations: 1853,
+        principal: 737,
+        interest: 1117
+      },
+      {
+        name: 'after',
+        "home equity": 80000,
+        "student loans": 16500,
+        monthlyObligations: 1598,
+        principal: 507,
+        interest: 1051
+      }
+    ];
+
+<BarChart width={ 480 } height={ 320 } data={ data }
+  margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+ <XAxis dataKey="name"/>
+ <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
+ <YAxis yAxisId="right" orientation="right" stroke="#82ca9d"/>
+ <CartesianGrid strokeDasharray="3 3"/>
+ <Tooltip/>
+ <Legend />
+ <Bar dataKey="home equity" yAxisId="left" fill="#307dd7" />
+ <Bar dataKey="student loans" yAxisId="left" fill="#c0d540" />
+</BarChart>
+
+<BarChart width={ 480 } height={ 320 } data={ data }
+  margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+ <XAxis dataKey="name" />
+ <YAxis />
+ <CartesianGrid strokeDasharray="3 3"/>
+ <Tooltip/>
+ <Legend />
+ <Bar type="monotone" dataKey="principal" fill="#307dd7"/>
+ <Bar type="monotone" dataKey="interest" fill="#c0d540"/>
+</BarChart>
