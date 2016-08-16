@@ -18,6 +18,10 @@ class CashOutRefi extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props !== nextProps;
+  }
+
   changePrincipal(event) {
     this.setState({ principal: event.target.value });
   }
@@ -29,8 +33,7 @@ class CashOutRefi extends Component {
   }
 
   _calcBalanceRemaining({ P, i, n, p }) {
-    const balance = P * ( Math.pow(1 + i, n) - Math.pow(1 + i, p) ) / ( Math.pow(1 + i, n) - 1 );
-    return Math.round(balance, 2);
+    return P * ( Math.pow(1 + i, n) - Math.pow(1 + i, p) ) / ( Math.pow(1 + i, n) - 1 );
   }
 
   _calculateAmortizationSchedule({ principal, interestRate, term }) {
@@ -54,8 +57,11 @@ class CashOutRefi extends Component {
     const equity = this._calculateAmortizationSchedule({ principal, interestRate, term });
 
     return (
-      <div>
+      <div style={{ display:'flex', alignContent:'center', flexWrap:'wrap', justifyContent:'center' }}>
         <div style={{ display:'flex', justifyContent:'center' }}>
+          <h1 style={{flex:'1 100%'}}>Mortgage Balance over Time</h1>
+        </div>
+        <div style={{ display:'flex', alignContent:'center', flexWrap:'wrap', justifyContent:'center' }}>
           <TextField
             hintText="$"
             floatingLabelText="Principal Amount"
@@ -83,9 +89,13 @@ class CashOutRefi extends Component {
             margin={ {top: 20, right: 80, bottom: 20, left: 20} }>
             <XAxis dataKey="month" label='Months' />
             <YAxis label='Balance' />
-            <CartesianGrid stroke="#eee" />
+            <CartesianGrid stroke="rgba(238, 238, 238, 0.5)" />
             <Tooltip content={ <CustomTooltip /> } />
-            <Line dot={ false } dataKey="balanceRemaining" stroke="#307dd7" />
+            <Line
+              dot={ false }
+              dataKey="balanceRemaining"
+              stroke="#307dd7"
+              strokeWidth={ 4 } />
           </LineChart>
         </div>
       </div>
